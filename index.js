@@ -12,7 +12,9 @@ console.log(__dirname)
 const app = express();
 
 app.use(express.static(path.join(__dirname, '/build')));
-app.use(cors())
+app.use(cors({
+    origin: '*'
+}));
 
 app.use(bodyParser.json());
 
