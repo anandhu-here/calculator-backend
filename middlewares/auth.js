@@ -1,5 +1,6 @@
 const { verify } = require('jsonwebtoken');
 const { verifyToken } = require('../controller/auth');
+const pool = require('../db/config');
 
 const login = (req, res, next) =>{
     const { email, password } = req.body;
@@ -32,9 +33,11 @@ const isAuth = async (req, res, next) =>{
     try{
         const t = req.headers.authorization;
         const token = t.split(" ").length>1?t.split(" ")[1]:t.split(" ")[0];
-        console.log(token, "hello")
         const {id, email} = verifyToken(token);
-        next();
+        const user = await pool.query(`select * from users where id = $1`, [id]);
+        if(user){
+            next()
+        }
     }
     catch(e){
         return res.status(400).send({error:'Unauthorized'})

@@ -147,7 +147,6 @@ module.exports = (app, db) => {
           const mon = parseInt(month);
           const lastDay = new Date(year, mon, 0 ).getDate();
             console.log(new Date(year, mon, 0 ))
-            console.log(lastDay, "ppp")
 
           const endDate = `${year}-${month}-${lastDay}`;
 
